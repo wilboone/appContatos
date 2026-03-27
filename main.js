@@ -14,20 +14,20 @@ document.getElementById("cpf").addEventListener("input", function (e) {
   e.target.value = value;
 });
 
-function mascara(input) {
-  input.addEventListener("input", function (e) {
-    let value = e.target.value.replace(/\D/g, "");
-
-    if (value.length > 11) value = value.slice(0, 11);
-
-    value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
-    value = value.replace(/(\d{5})(\d)/, "$1-$2");
-
-    e.target.value = value;
-  });
-}
-
-document.querySelectorAll(".celular").forEach(mascara);
+// function mascara(input) {
+//   input.addEventListener("input", function (e) {
+//     let value = e.target.value.replace(/\D/g, "");
+// 
+//     if (value.length > 11) value = value.slice(0, 11);
+// 
+//     value = value.replace(/^(\d{2})(\d)/g, "($1) $2");
+//     value = value.replace(/(\d{5})(\d)/, "$1-$2");
+// 
+//     e.target.value = value;
+//   });
+// }
+// 
+// document.querySelectorAll(".celular").forEach(mascara);
 
 document.getElementById("addTelefone").addEventListener("click", function () {
   const newDiv = document.createElement("div");
@@ -49,3 +49,19 @@ document.getElementById("addTelefone").addEventListener("click", function () {
   console.log(total);
   console.log(tel);
 });
+
+$(function () {
+  function formatarTelefone(value) {
+    let formatedValue = value.replace(/\D/g, "");
+    formatedValue = formatedValue.slice(0, 11);
+    formatedValue = formatedValue.replace(/^(\d{2})(\d)/g, "($1) $2");
+    formatedValue = formatedValue.replace(/(\d{5})(\d)/, "$1-$2");
+    return formatedValue;
+  }
+
+  $(".celular").on("input", function (e) {
+    const $element = $(e.target);
+    const val = $element.val();
+    $element.val(formatarTelefone(val));
+  });
+})
