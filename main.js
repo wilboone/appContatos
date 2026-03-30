@@ -31,9 +31,32 @@ document.querySelectorAll(".celular").forEach(mascara);
 
 document.getElementById("addTelefone").addEventListener("click", function () {
   const newDiv = document.createElement("div");
-  newDiv.classList.add("input-group", "mb-2");
-  newDiv.innerHTML = `<input type="text" id="celular" class="form-control celular" placeholder="(00) 00000-0000" maxlength="15" required/>
-              <button type="button" class="btn btn-danger remover">Remover</button>`;
+  newDiv.classList.add("mb-3");
+  newDiv.innerHTML = `
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="celular"
+                  class="form-control celular"
+                  placeholder="(00) 00000-0000"
+                  maxlength="15"
+                  required
+                />
+                <button type="button" class="btn btn-danger remover">
+                  Remover
+                </button>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  value=""
+                  id="checkDefault"
+                />
+                <label class="form-check-label" for="checkDefault">
+                  Possui WhatsApp
+                </label>
+              </div>`;
 
   mascara(newDiv.querySelector(".celular"));
 
@@ -50,12 +73,16 @@ document.getElementById("addTelefone").addEventListener("click", function () {
   console.log(tel);
 });
 
-// forma para remover dinamicamente elementos inseridos no HTML posteriormente
+// forma para remover elementos inseridos dinamicamente no HTML posteriormente
 
-const caixaTelefone = document.getElementById("telefones");
+const telefones = document.getElementById("telefones");
 
-caixaTelefone.addEventListener("click", function (e) {
+telefones.addEventListener("click", function (e) {
   if (e.target.classList.contains("remover")) {
-    e.target.parentElement.remove();
+    e.target.closest(".mb-3").remove();
+    let total = telefones.querySelectorAll(".input-group").length;
+    if (total < 10) {
+      document.getElementById("addTelefone").classList.remove("d-none");
+    }
   }
 });
