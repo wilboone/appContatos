@@ -49,3 +49,13 @@ document.getElementById("addTelefone").addEventListener("click", function () {
   console.log(total);
   console.log(tel);
 });
+
+// forma para remover dinamicamente elementos inseridos no HTML posteriormente
+
+const caixaTelefone = document.getElementById("telefones");
+
+caixaTelefone.addEventListener("click", function (e) {
+  if (e.target.classList.contains("remover")) {
+    e.target.parentElement.remove();
+  }
+});
